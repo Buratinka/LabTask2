@@ -92,7 +92,7 @@ public class Parser {
      * initializaton parametrs and call logic method  isMachine
      *
      * */
-    public void init() {
+    private void init() {
         word = param.get(0).split("");
         finalyState = param.get(3).split(" ");
         qCurrentState = param.get(2);
@@ -106,7 +106,7 @@ public class Parser {
      *
      * */
 
-    public boolean isMachine() {
+    private boolean isMachine() {
 
         for (int i = 0; i < word.length; ++i) {
 
@@ -151,7 +151,7 @@ public class Parser {
         return isMachin;
     }
 
-    public void writeFile()
+    private void writeFile()
     {
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath))))
         {
