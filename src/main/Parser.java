@@ -97,7 +97,7 @@ public class Parser {
         finalyState = param.get(3).split(" ");
         qCurrentState = param.get(2);
         isMachine();
-        writeFile();
+        writeFile(); 
     }
 
     /**
