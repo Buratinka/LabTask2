@@ -1,11 +1,9 @@
 /**
- *
  * LabWork2
  *
  * @autor oleg.shved.shvets@gmail.com
  * @version 1.1
- *
- * */
+ */
 package main;
 
 import consoleHelper.ConsoleHelper;
@@ -19,7 +17,7 @@ public class Parser {
     private String outPath;
 
     private ConsoleHelper consoleHelper;
-    private BufferedReader reader;
+    //private BufferedReader reader;
     private List<String> param = new ArrayList<>();
     private List<String> funcOfRedirect = new ArrayList<>();
     private int count = 0;
@@ -33,27 +31,19 @@ public class Parser {
     private StringBuilder wayOfWord = new StringBuilder();
 
 
+    public Parser(String inPath, String outPath) {
+        this.inPath = inPath;
+        this.outPath = outPath;
+    }
 
-public Parser(String inPath, String outPath)
-{
-    this.inPath = inPath;
-    this.outPath = outPath;
-}
     /**
      * read file and separate to lists param or functions to redirect
      *
      * */
-    public void readFile()
-    {
+    public void readFile() {
 
         if (inPath != null) {
-            try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(inPath)));
-            } catch (FileNotFoundException ex) {
-                consoleHelper.writeErrorMessage("Error " + ex);
-            }
-
-            try {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(inPath)))) {
                 String sb;
                 while ((sb = reader.readLine()) != null) {
                     if (count < 4) {
@@ -62,11 +52,13 @@ public Parser(String inPath, String outPath)
                     } else {
                         funcOfRedirect.add(sb);
                     }
-
                 }
-            } catch (IOException ex) {
-                consoleHelper.writeErrorMessage("Error" + ex.getMessage());
+            } catch (FileNotFoundException ex) {
+                consoleHelper.writeErrorMessage("Error " + ex);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
             init();
         } else {
             consoleHelper.writeErrorMessage("Null path!");
@@ -85,7 +77,7 @@ public Parser(String inPath, String outPath)
         finalyState = param.get(3).split(" ");
         qCurrentState = param.get(2);
         isMachine();
-        writeFile(); 
+        writeFile();
     }
 
     /**
@@ -108,24 +100,19 @@ public Parser(String inPath, String outPath)
 
                 endState = splitFunOfRidirect[2];
 
-                if (word[i].equals(checkLetParam) && qCurrentState.equals(startState))
-                {
-                    wayOfWord.append(word[i] + " "+qCurrentState+"->"+endState+";\n");
+                if (word[i].equals(checkLetParam) && qCurrentState.equals(startState)) {
+                    wayOfWord.append(word[i] + " " + qCurrentState + "->" + endState + ";\n");
                     qCurrentState = endState;
 
-                    if (word[i] == word[word.length-1])
-                    {
-                        for (String checkFinalState : finalyState)
-                        {
-                            if (endState.equals(checkFinalState))
-                            {
+                    if (word[i] == word[word.length - 1]) {
+                        for (String checkFinalState : finalyState) {
+                            if (endState.equals(checkFinalState)) {
                                 isMachin = true;
                                 wayOfWord.append("\n" + qCurrentState + " is one of correct ends.\n");
                             }
                         }
 
-                        if(isMachin == false)
-                        {
+                        if (isMachin == false) {
                             wayOfWord.append("\n" + qCurrentState + " is not correct end.\n");
                         }
 
@@ -153,14 +140,10 @@ public Parser(String inPath, String outPath)
         consoleHelper.writeMessage(wayOfWord.toString());
     }
 
-    private void writeFile()
-    {
-        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath))))
-        {
+    private void writeFile() {
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath)))) {
             writer.write(wayOfWord.toString());
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             consoleHelper.writeErrorMessage("Error : " + ex);
         }
     }
