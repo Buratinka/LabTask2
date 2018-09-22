@@ -52,7 +52,7 @@ public class Parser {
                     } else {
                         funcOfRedirect.add(sb);
                     }
-                }
+                 }
             } catch (FileNotFoundException ex) {
                 consoleHelper.writeErrorMessage("Error " + ex);
             } catch (IOException e) {
