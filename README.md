@@ -1,1 +1,1 @@
-Realisation FSM 
+Realisation of finite deterministic automatic machine
