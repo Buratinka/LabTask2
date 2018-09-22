@@ -34,17 +34,17 @@ public class Parser {
 
 
 
+public Parser(String inPath, String outPath)
+{
+    this.inPath = inPath;
+    this.outPath = outPath;
+}
     /**
-     * path to file and parse to lists param or function to redirect
+     * read file and separate to lists param or functions to redirect
      *
      * */
-
-
-    public void setPath(String inPath, String outPath)
+    public void readFile()
     {
-        this.inPath = inPath;
-        this.outPath = outPath;
-
 
         if (inPath != null) {
             try {
@@ -73,19 +73,7 @@ public class Parser {
         }
 
     }
-    /**
-     *
-     * show full message that input word is belongs language of machine or not
-     *
-     * */
-    public void getIsMachine() {
-        if (isMachin == false) {
-            wayOfWord.append("\nСлово не належить мові автомату.");
-        } else {
-            wayOfWord.append("\nСлово належить мові автомату.");
-        }
-        consoleHelper.writeMessage(wayOfWord.toString());
-    }
+
 
     /**
      *
@@ -149,6 +137,20 @@ public class Parser {
             }
         }
         return isMachin;
+    }
+
+    /**
+     *
+     * show full message that input word is belongs language of machine or not
+     *
+     * */
+    public void getIsMachine() {
+        if (isMachin == false) {
+            wayOfWord.append("\nWord is not belongs to the language of machine.");
+        } else {
+            wayOfWord.append("\nWord is belongs to the language of machine.");
+        }
+        consoleHelper.writeMessage(wayOfWord.toString());
     }
 
     private void writeFile()
