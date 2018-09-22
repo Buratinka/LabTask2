@@ -14,21 +14,23 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cheating {
-    private String path;
+public class Parser {
+    private String inPath;
+    private String outPath;
+
     private ConsoleHelper consoleHelper;
     private BufferedReader reader;
-    private static List<String> param = new ArrayList<>();
-    private static List<String> funcOfRedirect = new ArrayList<>();
+    private List<String> param = new ArrayList<>();
+    private List<String> funcOfRedirect = new ArrayList<>();
     private int count = 0;
-    private static String[] word;
-    private static String qCurrentState;
-    private static String startState;
-    private static String endState;
-    private static String checkLetParam;
-    private static String[] finalyState;
-    private static boolean isMachin = false;
-    private static StringBuilder wayOfWord = new StringBuilder();
+    private String[] word;
+    private String qCurrentState;
+    private String startState;
+    private String endState;
+    private String checkLetParam;
+    private String[] finalyState;
+    private boolean isMachin = false;
+    private StringBuilder wayOfWord = new StringBuilder();
 
 
 
@@ -38,12 +40,15 @@ public class Cheating {
      * */
 
 
-    public void setPath()//String path)
+    public void setPath(String inPath, String outPath)
     {
-        this.path = "/home/oleg/test/test2Laba/Input1.txt";//path;
-        if (path != null) {
+        this.inPath = inPath;
+        this.outPath = outPath;
+
+
+        if (inPath != null) {
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(inPath)));
             } catch (FileNotFoundException ex) {
                 consoleHelper.writeErrorMessage("Error " + ex);
             }
@@ -101,7 +106,7 @@ public class Cheating {
      *
      * */
 
-    public static boolean isMachine() {
+    public boolean isMachine() {
 
         for (int i = 0; i < word.length; ++i) {
 
@@ -148,7 +153,7 @@ public class Cheating {
 
     public void writeFile()
     {
-        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/oleg/test/test2Laba/Output1.txt"))))
+        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outPath))))
         {
             writer.write(wayOfWord.toString());
         }
