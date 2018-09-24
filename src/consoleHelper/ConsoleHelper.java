@@ -1,5 +1,13 @@
 package consoleHelper;
 
+/**
+ *
+ * @autor oleg.shved.shvets@gmail.com with support from resource https://javarush.ru/
+ * Class for simple work with streams of output
+ *
+ * */
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

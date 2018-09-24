@@ -1,8 +1,6 @@
 /**
- * LabWork2
- *
  * @autor oleg.shved.shvets@gmail.com
- * @version 1.1
+ * realisation of deterministic finite automaton
  */
 package main;
 
